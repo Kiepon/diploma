@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, 'Segoe UI';
+}
+
+
+ul li {
+    list-style-type: none;
+}
+
+header div ul {
+    display: flex;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+  
+  caption {
+    caption-side: top;
+    padding: 10px;
+    font-weight: bold;
+  }
+  
+  thead,
+  tfoot {
+    background-color: rgb(228 240 245);
+  }
+  
+  th,
+  td {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+  }
+  
+  td:last-of-type {
+    text-align: center;
+  }
+  
+  tbody > tr:nth-of-type(even) {
+    background-color: rgb(237 238 242);
+  }
+  
+  tfoot th {
+    text-align: right;
+  }
+  
+  tfoot td {
+    font-weight: bold;
+  }
+  
+
+  .selected-start-date {
+    background-color: blue;
+    color: white;
+}
+
+.selected-next-date {
+    background-color: lightblue;
+}
+
+.adults-childs-count {
+
+}
+
+.hidden {
+  display: none;
+}
+
+.daterangepicker .btn {
+  display: none; /* Скрывает кнопки "Apply" и "Cancel" */
+}
+
+.daterangepicker .ranges {
+  display: none; /* Скрывает предварительно заданные диапазоны */
+}
+
+.daterangepicker .drp-buttons {
+  display: none;
+}
+
+.daterangepicker .drp-buttons .drp-selected {
+  display: none;
+}
+
+.main {
+  background-image: url(../img/fon.png);
+    width: 100%;
+    height: auto;
+    padding-top: 30%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.block-form {
+  padding: 2%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.block-form h1 {
+  text-align: center;
+}
+
+.main form {
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+}
+
+.count {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 2%;
+  transition: 0.5s;
+}
+
+.form-control {
+  background-color: white;
+}
+
+.adults_childs:active {
+  
+}

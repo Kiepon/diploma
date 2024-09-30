@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}Бронирование отелей и гостиниц{% endblock %}
+
+{% block content %}
+
+{% comment %} <div class="image-header">
+    <img src="{% static 'img/fon.png' %}" class="mx-auto d-block header-img">
+</div> {% endcomment %}
+
+
+
+<div class="main">
+    <div class="position-absolute top-50 start-50 translate-middle bg-white block-form">
+        <h1>Забронировать отель</h1>
+    <form method="post" class="reservation-form">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-dark">Найти</button>
+    </form>
+    </div>
+    
+
+    <div class="position-absolute start-50 count hidden">
+        <p>Взрослые</p>
+        <p>от 18 лет</p>
+        <button id='decrement-adults'>-</button>
+        <span class="adults">2</span>
+        <button id='increment-adults'>+</button>
+
+        <p>Дети</p>
+        <p>от 0 до 17 лет</p>
+        <button id='decrement-childs'>-</button>
+        <span class="childs">0</span>
+        <button id='increment-childs'>+</button>
+        <input type="range" id="range" min="0" max="17" step="1" value="0">
+        <div><span id="value"></span></div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function() {
+    
+      $('#checkIn').daterangepicker({
+          autoUpdateInput: false,
+          autoApply: true,
+          minDate: moment().startOf('day'),
+          locale: {
+              cancelLabel: 'Clear',
+              format: 'DD MMMM',
+          }
+      });
+    
+      $('#checkIn').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' — ' + picker.endDate.format('YYYY-MM-DD'));
+      });
+    
+      $('#checkIn').on('cancel.daterangepicker', function(ev, picker) {
+          $(this).val('');
+      });
+    
+    });
+    </script>
+
+{% endblock %}

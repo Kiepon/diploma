@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Отели{% endblock %}
+
+
+{% block content %}
+    {% if hotels %}
+        <h1>Отели и гостиницы</h1>
+        <ul>
+            {% for hotel in hotels %}
+                <li>{{ hotel.hotelName }} - {{ hotel.priceFrom }} Руб</li> <br>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
