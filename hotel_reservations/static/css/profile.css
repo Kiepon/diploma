@@ -1,0 +1,54 @@
+.container {
+    max-width: 1530px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 20px;
+}
+
+
+.line {
+    border: 1px solid black;
+    opacity: .25;
+}
+
+.settings-profile {
+    padding-left: 4%;
+    padding-top: 2%;
+    width: 70%;
+    
+}
+
+.container-sidebar {
+    padding-top: 2%;
+}
+
+.personal-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 5%;
+}
+
+.personal-data form {
+    padding-top: 8%;
+    width: 300px;
+}
+
+.social-networks {
+    padding-top: 10%;
+}
+
+.social-networks h3 {
+    font-weight: 700;
+}
+
+ul.nav li a:hover {
+    opacity: 0.7;
+    transition: 0.2s;
+}
+
+
+
+ul.nav li a:visited{
+    background-color: #0d6efd;
+}

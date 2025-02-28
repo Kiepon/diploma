@@ -1,0 +1,171 @@
+h1 {
+    text-align: center;
+}
+.hotels-list {
+    margin-top: 5%;
+}
+
+.fullscreen {
+    background-color: rgb(235, 244, 255)
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: inherit
+}
+
+/* Для адаптива стили будут
+.hotels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    
+}
+
+.list-item {
+    padding: 15px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+}
+
+
+.img-link {
+    display: flex;
+    justify-content: center;
+}
+
+.img-link img {
+    border-radius: 10px;
+}
+
+.reservation-btn {
+    background-color: black;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+} */
+
+.search-hotels-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.hotels-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    -webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    margin-left: 50px;
+    
+}
+
+.list-item {
+    padding: 15px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    transition: top ease 0.5s;
+    top: 0;
+    position: relative;
+}
+
+.list-item:hover {
+    top: -10px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    transition: all 0.5s;
+}
+
+.img-link img {
+    border-radius: 10px;
+}
+
+
+
+.reservation-btn {
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #4138e9;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #003CC5 0%, #0B63F6 51%, #003CC5 100%);
+    padding: 10px;
+    width: 100px;
+    font-size: 17px;
+}
+
+.reservation-btn:hover {
+    background-position: right center;
+    color: white;
+}
+
+.info-hotel {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+
+.select__hotel {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.height__line {
+    border: 1px solid #222222;
+    opacity: 0.2;
+    margin: 10px;
+    
+}
+  
+canvas {
+    border: 1px solid white;
+    background-color: transparent;
+    z-index: 10;
+}
+
+.distance {
+    font-size: 20px;
+}
+
+.description_hotel h3 {
+    padding: 10px 0;
+}
+
+.price-avg {
+    font-size: 22px;
+}
+
+.list-item.swiper-slide {
+    margin-bottom: 20px;
+}
+
+
+.container-hotels {
+    min-width: 1024px;
+}
+
+.swiper {
+    width: 100%; /* Ширина контейнера */
+    overflow: hidden; /* Скрываем лишние слайды */
+}
+
+.swiper-slide {
+    width: auto; /* Автоматическая ширина слайдов */
+    flex-shrink: 0; /* Предотвращаем сжатие слайдов */
+}

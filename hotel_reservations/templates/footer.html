@@ -1,0 +1,30 @@
+{% load static %}
+
+<div class="container-footer">
+    <footer class="footer">
+      <div class="footer-list">
+        <div class="footer-form-subscribe">
+          <form>
+            <h5>Путешествуйте выгоднее!</h5>
+            <p>Будьте в курсе выгодных цен и спецпредложений первыми!</p>
+            <div class="email-form-input-and-button">
+              <input id="newsletter1" type="text" class="form-control" placeholder="Введите почту">
+              <button class="btn btn-primary" type="button">Подписаться</button>
+            </div>
+          </form>
+        </div>
+        <div class="footer-navbar">
+          <div class="section-footer-list">
+            <ul>
+              <li class="item-navbar"><a href="#">О нас</a></li>
+              <li class="item-navbar"><a href="#">Служба поддержки</a></li>
+              <li class="item-navbar"><a href="{% url "hotel_reservations:policy_privacy" %}">Политика конфиденциальности</a></li>
+              <li class="item-navbar"><a href="#">FAQs</a></li>
+            </ul>
+          </div>
+        </div>
+    </footer>
+    <div class="footer-text">
+      <p>© Авторские права Booking Hotels. Все права защищены.</p>
+    </div>
+  </div>

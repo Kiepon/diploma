@@ -1,68 +1,328 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/slider.css' %}" />
+<meta name="csrf-token" content="{{ csrf_token }}">
+{% endblock %} 
+{% block title %}Бронирование отелей и гостиниц{% endblock %} 
 
 
-{% block title %}Бронирование отелей и гостиниц{% endblock %}
-
-{% block content %}
-
-{% comment %} <div class="image-header">
-    <img src="{% static 'img/fon.png' %}" class="mx-auto d-block header-img">
-</div> {% endcomment %}
-
-
-
-<div class="main">
-    <div class="position-absolute top-50 start-50 translate-middle bg-white block-form">
-        <h1>Забронировать отель</h1>
-    <form method="post" class="reservation-form">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit" class="btn btn-dark">Найти</button>
-    </form>
-    </div>
-    
-
-    <div class="position-absolute start-50 count hidden">
-        <p>Взрослые</p>
-        <p>от 18 лет</p>
-        <button id='decrement-adults'>-</button>
-        <span class="adults">2</span>
-        <button id='increment-adults'>+</button>
-
-        <p>Дети</p>
-        <p>от 0 до 17 лет</p>
-        <button id='decrement-childs'>-</button>
-        <span class="childs">0</span>
-        <button id='increment-childs'>+</button>
-        <input type="range" id="range" min="0" max="17" step="1" value="0">
-        <div><span id="value"></span></div>
-    </div>
+{% block content %} {% comment %}
+<div class="image-header">
+  <img src="{% static 'img/fon.png' %}" class="mx-auto d-block header-img" />
 </div>
+{% endcomment %}
+
+
+<div class="container-for-mobile">
+  <div id="preloader" style="display: none;">
+    <div class="spinner"></div>
+    <p>Ищем подходящие варианты...</p>
+  </div>
+  <div class="main">
+    <div class="block-form">
+        <h2>Гостиницы и квартиры по доступным ценам</h2>
+      <form method="post" id="hotel-form" action="" class="reservation-form" data-url="{% url 'hotel_reservations:home' %}"  data-search-url="{% url 'hotel_reservations:search' %}">
+        {% csrf_token %}
+        <div>{{ form.city }}</div>
+        <div>{{ form.check_in_date }}</div>
+        <div>
+          {{ form.adults_childs_count }}
+          <div class="count hidden">
+            <div class="container-adults-count">
+              <div class="adults_count">
+                <span>Взрослые</span><br />
+                <span>от 18 лет</span>
+              </div>
+              <div class="">
+                <button type="button" id="decrement-adults" class="btn-count">
+                  -
+                </button>
+                <span class="adults">2</span>
+                <button type="button" id="increment-adults" class="btn-count">
+                  +
+                </button>
+              </div>
+            </div>
+            <br />
+            <div class="container-childs-count">
+              <div class="childs_count">
+                <span>Дети</span><br />
+                <span
+                  >от 0 до <br />
+                  17 лет</span
+                >
+              </div>
+              <div>
+                <button type="button" id="decrement-childs" class="btn-count">
+                  -
+                </button>
+                <span class="childs">0</span>
+  
+                <button type="button" id="increment-childs" class="btn-count">
+                  +
+                </button>
+              </div>
+            </div>
+            <br />
+            <hr />
+            <button type="button" id="select-people" class="btn btn-dark">
+              Выбрать
+            </button>
+          </div>
+        </div>
+        <button type="submit" id="findHotel" class="btn btn-dark">Найти</button>
+      </form>
+    </div>
+  </div>
+  
+  <div class="container-main">
+    <section>
+      <div class="head-text-slider">
+        <h6>Популярные направления</h6>
+      </div>
+      <div class="slider-wrapper">
+        <div id="wrapper">
+          <div id="carousel">
+            <div id="content">
+              <div class="position-relative">
+                <img class="item" src="{% static "./img/moscow.jpg" %}" />
+                <p class="position-absolute top-0 p-3">Москва</p>
+              </div>
+              <div class="position-relative">
+                <img src="{% static "./img/spb.jpg" %}" class="item" />
+                <p class="position-absolute top-0 p-3">Санкт-Петербург</p>
+              </div>
+              <div class="position-relative">
+                <img src="{% static "./img/ufa.jpg" %}" class="item" />
+                <p class="position-absolute top-0 p-3">Уфа</p>
+              </div>
+    
+              <div class="position-relative">
+                <img src="{% static "./img/novosib.jpg" %}" class="item" />
+                <p class="position-absolute top-0 p-3">Новосибирск</p>
+              </div>
+              <div class="position-relative">
+                <img src="{% static "./img/ekb.jpg" %}" class="item" />
+                <p class="position-absolute top-0 p-3">Екатеринбург</p>
+              </div>
+              <div class="position-relative">
+                <img src="{% static "./img/vladik.jpeg" %}" class="item" />
+                <p class="position-absolute top-0 p-3">Владивосток</p>
+              </div>
+              <div class="position-relative">
+                <img src="{% static "./img/yaroslavl.jpg" %}" class="item" />
+                <p class="position-absolute top-0 p-3">Ярославль</p>
+              </div>
+              <div class="position-relative">
+                <img src="{% static "./img/kazan.jpg" %}" class="item" />
+                <p class="position-absolute top-0 p-3">Казань</p>
+              </div>
+            </div>
+          </div>
+          <button id="prev">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path fill="none" d="M0 0h24v24H0V0z" />
+              <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+            </svg>
+          </button>
+          <button id="next">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path fill="none" d="M0 0h24v24H0V0z" />
+              <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    
+      <div class="about-us">
+        <div class="available-price">
+          <div class="">
+            <img src="{% static "img/svg_icon/card-holder.svg" %}" width="40px"
+            alt="">
+            <h4>Доступные цены</h4>
+            <p>
+              Мы сотрудничаем непосредственно с тысячами гостиниц и множеством
+              поставщиков, что позволяет нам наблюдать за ценами на номера. Поэтому
+              у нас всегда имеются привлекательные предложения по большинству
+              направлений.
+            </p>
+          </div>
+          <div class="">
+            <img src="{% static "img/svg_icon/card-holder.svg" %}" width="40px"
+            alt="">
+            <h4>Отели по всему мира</h4>
+            <p>
+              Мы предлагаем более миллиона вариантов проживания по всему миру,
+              включая отели, хостелы, апартаменты, виллы и даже кемпинги. В любое
+              время года вы сможете подобрать что-то, что идеально вам подойдёт.
+            </p>
+          </div>
+          <div class="">
+            <img src="{% static "img/svg_icon/card-holder.svg" %}" width="40px"
+            alt="">
+            <h4>Поддержка доступна 24/7</h4>
+            <p>
+              Специалисты по поддержке помогут вам выбрать отель и осуществить
+              бронирование. Если у вас возникнут вопросы во время поездки, оператор
+              останется на связи и быстро найдет решение.
+            </p>
+          </div>
+          <div class="">
+            <img src="{% static "img/svg_icon/card-holder.svg" %}" width="40px"
+            alt="">
+            <h4>Гибкая система отмены</h4>
+            <p>
+              Мы понимаем, что планы могут меняться, и поэтому предлагаем гибкие
+              условия отмены бронирований. Большинство наших отелей позволяет
+              отменить или изменить резервацию без штрафов до определенного срока.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <div class="col-sm-7 mx-auto">
+    <header class="section-main text-center">
+      <h3>Нам доверяют миллионы пользователей</h3>
+    </header>
+  </div>
+  
+  
+  <div id="flex-container" class="testimonials">
+    <div id="left-zone">
+      <ul class="list">
+        <li class="item-slider">
+          <input
+            type="radio"
+            id="radio_testimonial-1"
+            name="basic_carousel"
+            checked="checked"
+          />
+          <label class="label_testimonial-1" for="radio_testimonial-1"
+            >Гарантия заселения</label
+          >
+          <div class="content-test content_testimonial-1">
+            <span class="picto"></span>
+            <h2>Гарантия заселения</h2>
+            <p>
+              Наше агентство предлагает уникальную гарантию заселения, обеспечивая
+              комфортный старт вашего проживания в любом выбранном жилье.
+            </p>
+            {% comment %}
+            <p class="testimonialFrom">Bill, Owner</p>
+            <p class="testimonialState">Rochester, NY</p>
+            {% endcomment %}
+          </div>
+        </li>
+        <li class="item-slider">
+          <input type="radio" id="radio_testimonial-2" name="basic_carousel" />
+          <label class="label_testimonial-2" for="radio_testimonial-2"
+            >10 лет в индустрии туризма</label
+          >
+          <div class="content-test content_testimonial-2">
+            <span class="picto"></span>
+            <h2>10 лет в индустрии туризма</h2>
+            <p>
+              С нашим десятилетним опытом в индустрии туризма, мы знаем, как
+              сделать ваше пребывание незабываемым. Мы предлагаем проверенные
+              решения для бронирования, которые обеспечат вам комфорт и
+              безопасность на каждом этапе вашего путешествия.
+            </p>
+            {% comment %}
+            <p class="testimonialFrom">Bill, Owner</p>
+            <p class="testimonialState">Rochester, NY</p>
+            {% endcomment %}
+            <br />
+          </div>
+        </li>
+        <li class="item-slider">
+          <input type="radio" id="radio_testimonial-3" name="basic_carousel" />
+          <label class="label_testimonial-3" for="radio_testimonial-3"
+            >Безопасная оплата</label
+          >
+          <div class="content-test content_testimonial-3">
+            <span class="picto"></span>
+            <h2>Безопасная оплата</h2>
+            <p>
+              Мы заботимся о ваших финансовых интересах и гарантируем полную
+              безопасность транзакций. Наши системы защиты данных обеспечивают
+              конфиденциальность и защиту вашей личной информации, чтобы вы могли
+              бронировать отели с уверенностью и спокойствием.
+            </p>
+            {% comment %}
+            <p class="testimonialFrom">Bill, Owner</p>
+            <p class="testimonialState">Rochester, NY</p>
+            {% endcomment %}
+          </div>
+        </li>
+        <li class="item-slider">
+          <input type="radio" id="radio_testimonial-4" name="basic_carousel" />
+          <label class="label_testimonial-4" for="radio_testimonial-4"
+            >Правовая информация</label
+          >
+          <div class="content-test content_testimonial-4">
+            <span class="picto"></span>
+            <h2>Правовая информация</h2>
+            <p>
+              Мы ценим вашу приватность и стремимся защитить ваши персональные
+              данные. Наша политика конфиденциальности объясняет, как мы собираем,
+              используем и защищаем информацию, которую вы предоставляете при
+              бронировании отелей, чтобы вы могли чувствовать себя в безопасности
+              при использовании нашего сервиса.
+            </p>
+            {% comment %}
+            <p class="testimonialFrom">Bill, Owner</p>
+            <p class="testimonialState">Rochester, NY</p>
+            {% endcomment %}
+            <br />
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div id="right-zone"></div>
+  </div>
+</div>
+
+{% include 'footer.html' %}
+
 
 
 <script type="text/javascript">
-    $(function() {
-    
-      $('#checkIn').daterangepicker({
-          autoUpdateInput: false,
-          autoApply: true,
-          minDate: moment().startOf('day'),
-          locale: {
-              cancelLabel: 'Clear',
-              format: 'DD MMMM',
-          }
-      });
-    
-      $('#checkIn').on('apply.daterangepicker', function(ev, picker) {
-        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' — ' + picker.endDate.format('YYYY-MM-DD'));
-      });
-    
-      $('#checkIn').on('cancel.daterangepicker', function(ev, picker) {
-          $(this).val('');
-      });
-    
+  $(function () {
+    $("#checkIn").daterangepicker({
+      autoUpdateInput: false,
+      autoApply: true,
+      minDate: moment().startOf("day"),
+      locale: {
+        cancelLabel: "Clear",
+        format: "DD MMMM",
+      },
     });
-    </script>
 
+    $("#checkIn").on("apply.daterangepicker", function (ev, picker) {
+      $(this).val(
+        picker.startDate.format("YYYY-MM-DD") +
+          " — " +
+          picker.endDate.format("YYYY-MM-DD")
+      );
+    });
+
+    $("#checkIn").on("cancel.daterangepicker", function (ev, picker) {
+      $(this).val("");
+    });
+  });
+</script>
+<script src="{% static "js/slider.js" %}"></script>
 {% endblock %}

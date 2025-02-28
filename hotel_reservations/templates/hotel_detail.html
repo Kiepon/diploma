@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+{% load hotel_type_filter %}
+{% load humanize %}
+{% block title %}{{ hotel.name|title }}{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static "css/hotel_detail.css" %}">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+{% endblock %}
+
+{% block content %}
+<div class="container-back">
+    <div class="container">
+        <div class="detail__info">
+            <div class="gallery">
+                <div class="hotelStarsType">
+                    <h2 class="header-hotel">
+                        {{ hotel.name|title }}
+                        <span class="rating">
+                            {{ hotel.rating|intcomma }}
+                        </span>
+                    </h2>
+                    <p class="stars">
+                        {% with stars=hotel.stars %}
+                            {% if 1 <= stars <= 5 %}
+                                {% for i in 1|rjust:stars %}
+                                    <img src="{% static 'img/svg_icon/star.svg' %}" width="20" height="20">
+                                {% endfor %}
+                            {% else %}
+                                {{ stars }}
+                            {% endif %}
+                        {% endwith %}
+                        <span class="property_type">{{ hotel.property_type|translate_property_type }}</span>
+                    </p>
+                </div>
+                
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for photo_url in photo_urls %}
+                            <div class="swiper-slide">
+                                <img class="gallery-photo" src="{{ photo_url }}" alt="{{ hotel.name }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+            <div class="rooms">
+                <div class="room">
+                    <h4>Стандартный номер</h4>
+                    <div class="room__detail">
+                        {% for photo_url in photo_urls|slice:":4" %}
+                                <img class="photo__room" src="{{ photo_url }}" alt="{{ hotel.name }}">
+                        {% endfor %}
+                    </div>
+                    <p>Стандартый двухместный номер с одной кроватью</p>
+                    <p>
+                        Wifi: {% if hotel.has_wifi %}Есть{% else %}Нет{% endif %}
+                        
+                    </p>
+                    <p>Стандартый двухместный номер с двумя односпальными кроватями</p>
+                    <hr>
+                    <p>Стандартый двухместный номер с полноценной двуспальной кроватью</p>
+                    <div class="detail__convenience">
+
+                    </div>
+                </div>
+                <div class="room">
+                    <h4>Роскошный номер</h4>
+                    <div class="room__detail">
+                        {% for photo_url in photo_urls|slice:"4:8" %}
+                            <img class="photo__room" src="{{ photo_url }}" alt="{{ hotel.name }}" width="240" height="200">
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+                <div class="room">
+                    <h4>Супериор</h4>
+                    <div class="room__detail">
+                        {% for photo_url in photo_urls|slice:"16:20" %}
+                            <img class="photo__room" src="{{ photo_url }}" alt="{{ hotel.name }}" width="240" height="200">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            {% comment %} <div class="information__advantage">
+                <p>Цена за {{ hotel.last_price_info.nights }} ночи: {{ hotel.last_price_info.price }} рублей</p>
+                <p>Расстояние до центра: {{ hotel.distance }} км</p>
+                <p>Wi-Fi: {% if hotel.has_wifi %}Да{% else %}Нет{% endif %}</p>
+            </div> {% endcomment %}
+            
+        </div>
+        
+
+            <!-- Кнопка для бронирования -->
+            {% comment %} <a href="{% url 'book_hotel' hotel.hotel_id %}" class="btn btn-primary">Забронировать</a> {% endcomment %}
+    </div> 
+</div>
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="{% static "js/carousel_hotel.js" %}"></script>
+{% endblock %}

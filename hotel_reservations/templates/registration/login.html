@@ -2,12 +2,35 @@
 
 {% block title %}Вход{% endblock %}
 
-{% block content %}
-<h2>Вход</h2>
+{% load static %}
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button>Войти</button>
-</form>
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<section class="section-auth">
+    <div class="block-form-auth">
+        <h2 class=" text-center mb-5">Авторизация</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <div data-mdb-input-init class="form-inline mb-4">
+                {{ form.username }}
+            </div>
+            <div data-mdb-input-init class="form-inline mb-4">
+                {{ form.password }}
+            </div>
+            <div class="d-grid gap-2">
+                <button class="btn btn-dark btn-lg">Войти</button>
+            </div>
+        </form>
+        <div class="link-for-registr">
+            <p>Нет профиля? <a href="{% url 'hotel_reservations:registration' %}">Зарегистрируйтесь!</a></p>
+            <p><a href="{% url 'hotel_reservations:password_reset' %}">Забыли пароль?</a></p>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

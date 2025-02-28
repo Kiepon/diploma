@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block title %}
+Мой профиль
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="container-sidebar">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+      <a href="{% url 'hotel_reservations:profile' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"></svg>
+        <span class="fs-4">{{ user.username }}</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="{% url "hotel_reservations:profile" %}" class="nav-link link-dark profile_cab" aria-current="page">
+            <svg class="bi me-2" width="16" height="16"></svg>
+            Личный кабинет
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url "hotel_reservations:orders" %}" class="nav-link link-dark" aria-current="page">
+            <svg class="bi me-2" width="16" height="16"></svg>
+            Мои заказы
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link link-dark">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+            Бонусы и скидки
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="line"></div>
+  {% block profile_content %}
+    <div class="settings-profile">
+      <div class="personal-data">
+          <div class="update-user-data-form">
+            <h3>Личные данные</h3>
+            <form action="" method="post" class="update-form" id="UpdateForm">
+              {% csrf_token %}
+              <input type="hidden" name="type_form" value="update_user">
+
+              <div class="form-item">
+                {{ update_user_form.username.label_tag }}
+                {{ update_user_form.username }}
+                {% if update_user_form.username.errors %}
+                    <div class="text-danger">
+                        {% for error in update_user_form.username.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+              </div>
+              <div class="form-item">
+                {{ update_user_form.email.label_tag }}
+                {{ update_user_form.email }}
+                {% if update_user_form.email.errors %}
+                    <div class="text-danger">
+                        {% for error in update_user_form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+              </div>
+              <button class="btn btn-dark btn-xl">Редактировать</button>
+            </form>
+            {% comment %} <div id="successMessage" class="alert alert-success" style="display:none;">
+              Данные успешно обновлены
+            </div> {% endcomment %}
+          </div>
+          <div class="update-user-password">
+            <h3>Изменение пароля</h3>
+            <form action="" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="type_form" value="change_password">
+              {% comment %} {% for pass in password_form %}
+              <div class="form-item">
+                {{ pass.label_tag }}
+                {{ pass }}
+                {% if pass.errors %}
+                    <div class="text-danger">
+                        {% for error in pass.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+              </div>
+              {% endfor %} {% endcomment %}
+              <div class="form-item">
+                {{ password_form.old_password.label_tag }}
+                {{ password_form.old_password }}
+                {% if password_form.old_password.errors %}
+                    <div class="text-danger">
+                        {% for error in password_form.old_password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+              </div>
+              <div class="form-item">
+                {{ password_form.new_password1.label_tag }}
+                {{ password_form.new_password1 }}
+                {% if password_form.new_password1.errors %}
+                    <div class="text-danger">
+                        {% for error in password_form.new_password1.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+              </div>
+              <div class="form-item">
+                {{ password_form.new_password2.label_tag }}
+                {{ password_form.new_password2 }}
+                {% if password_form.new_password2.errors %}
+                    <div class="text-danger">
+                        {% for error in password_form.new_password2.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+              </div>
+              <button class="btn btn-dark btn-xl">Изменить пароль</button>
+            </form>
+          </div>
+      </div>
+      <div class="social-networks">
+        <h3>Привяжите ваши социальные сети</h3>
+        <p>Вход на сайт не потребует от вас запоминать логин и пароль.</p>
+        <p>(тут будет привязка по типу):</p>
+        <p><a href="#">Вконтакте</a></p>
+      </div>
+    </div>
+    {% endblock %}
+</div>
+<script src="{% static "js/profile.js" %}"></script>
+{% endblock %}

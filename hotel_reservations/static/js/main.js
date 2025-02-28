@@ -6,6 +6,8 @@ const MinusChilds = document.getElementById("decrement-childs");
 const PlusChilds = document.getElementById("increment-childs");
 const ChildsCount = document.querySelector(".childs");
 const AdultsCount = document.querySelector(".adults");
+const  SelectPeople = document.getElementById('select-people');
+
 
 const rangeAge = document.getElementById('range');
 const valueAge = document.getElementById('value');
@@ -26,6 +28,27 @@ MinusChilds.disabled = true;
 AdultsChildsCount.addEventListener('click', () => {
     Count.classList.toggle('hidden')
 })
+
+
+// Обработчик клика на элемент с классом AdultsChildsCount
+AdultsChildsCount.addEventListener('click', () => {
+  Count.classList.remove('hidden');
+});
+
+SelectPeople.addEventListener('click', () => {
+  Count.classList.toggle('hidden');
+})
+
+// Обработчик клика на окно
+window.addEventListener('click', (event) => {
+  // Проверяем, что клик был не на Count и не на AdultsChildsCount
+  if (!Count.classList.contains('hidden') && 
+      event.target !== AdultsChildsCount && 
+      event.target !== Count && 
+      !Count.contains(event.target)) {
+      Count.classList.add('hidden');
+  }
+});
 
 MinusAdults.addEventListener('click', () => {
     counterAdults--;
@@ -59,18 +82,9 @@ MinusChilds.addEventListener('click', () => {
     updateCount();
 });
 
-rangeAge.oninput = function() {
-    const value = this.value;
-    const suffixes = ['лет', 'год', 'года'];
-    let word;
+const BurgerBtn = document.querySelector('.burger')
+const BurgerMenu = document.querySelector('.header-list')
 
-    if (value == 1) {
-        word = suffixes[1];
-    } else if (value < 5 && value > 0) {
-        word = suffixes[2];
-    } else {
-        word = suffixes[0];
-    }
-
-    valueAge.innerHTML = `${value} ${word}`;
-}
+BurgerBtn.addEventListener('click', () => {
+    BurgerMenu.classList.toggle('show')
+})

@@ -1,13 +1,68 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}Регистрация{% endblock %} 
 
-{% block title %}Регистрация{% endblock %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+{% endblock %}
+
+
 
 {% block content %}
-<h1>Зарегистрируйтесь на сайте, чтобы отслеживать свои поездки</h1>
+<section class="section-registration">
+    <div class="block-form-registration">
+        <h2 class=" text-center mb-5">Регистрация</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div data-mdb-input-init class="form-outline mb-4">
+                {{ registr_form.username }}
+                {% if registr_form.username.errors %}
+                    <div class="text-danger">
+                        {% for error in registr_form.username.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+                {{ registr_form.email }}
+                {% if registr_form.email.errors %}
+                    <div class="text-danger">
+                        {% for error in registr_form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+                {{ registr_form.password }}
+                {% if registr_form.password.errors %}
+                    <div class="text-danger">
+                        {% for error in registr_form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+                {{ registr_form.password2 }}
+                {% if registr_form.password2.errors %}
+                    <div class="text-danger">
+                        {% for error in registr_form.password2.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="d-grid gap-2">
+                <button class="btn btn-dark btn-lg">Зарегистрироваться</button>
+            </div>
+        </form>
+        <div class="link-for-auth">
+            <p>Уже зарегистрированы? <a href="{% url "hotel_reservations:login" %}">Войдите тут</a></p>
+        </div>
+    </div>
+</section>
 
-<form action="" method='post'>
-    {% csrf_token %}
-    {{ registr_form.as_p }}
-    <button>Зарегистрироваться</button>
-</form>
+              
 {% endblock %}

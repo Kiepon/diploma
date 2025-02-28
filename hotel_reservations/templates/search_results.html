@@ -1,15 +1,80 @@
 {% extends "base.html" %}
+{% load static %}
+{% load humanize %}
 
-{% block title %}Отели{% endblock %}
+{% block title %}Отели и гостиницы{% endblock %}
 
+{% block link %}
+<link rel="stylesheet" href="{% static "css/search.css" %}">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+{% endblock %}
 
 {% block content %}
+<div class="container-hotels">
     {% if hotels %}
         <h1>Отели и гостиницы</h1>
-        <ul>
-            {% for hotel in hotels %}
-                <li>{{ hotel.hotelName }} - {{ hotel.priceFrom }} Руб</li> <br>
-            {% endfor %}
-        </ul>
+        <div class="filter">
+        </div>
+        <div class="search-hotels-list swiper">
+            <div class="hotels-list swiper-wrapper">
+                {% for hotel in hotels %}
+                        <div class="list-item swiper-slide swiper-no-swiping" style="height: auto;">
+                            <div class="img-link">
+                                {% if hotel.photo %}
+                                    <a href="{% url 'hotel_reservations:hotel_detail' hotel.hotel_id %}" class="photo-hotels">
+                                        <img src="{{ hotel.photo }}" alt="Фото отеля" width="500" height="350">
+                                    </a>
+                                {% endif %}
+                            </div>
+                        <div class="hotel-card">
+                            <div class="info-hotel">
+                                <div class="description_hotel">
+                                    {% with stars=hotel.stars %}
+                                        {% if 1 <= stars <= 5 %}
+                                            {% for i in 1|rjust:stars %}
+                                                <img src="{% static 'img/svg_icon/star.svg' %}" width="30" height="30">   
+                                            {% endfor %}
+                                        {% else %}
+                                            {{ stars }}
+                                        {% endif %}
+                                    {% endwith %}
+                                    <h3><a href="{{ hotel.url }}" target="_blank">{{ hotel.hotelName|title }}</a></h3>
+                                    <p class="distance">{{ hotel.distance }} км от центра, ночи: {{ hotel.nights }}</p>
+                                </div>
+                                <div class="height__line"></div>
+                                <div class="select__hotel">
+                                    <p class="price-avg">{{ hotel.priceAvg|intcomma  }} ₽</p>
+                                    <a href="{% url 'hotel_reservations:hotel_detail' hotel.hotel_id %}" class="reservation-btn">Выбрать</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     {% endif %}
+</div>
+    
+    <script>
+        const height = document.body.offsetHeight;
+        const width = document.body.offsetWidth;
+        const cvs = document.getElementById('canvas');
+        cvs.setAttribute("height", height);
+        cvs.setAttribute("width", width);
+    </script>
+    <script>
+        window.onload = function () {
+          document.body.classList.add('loaded_hiding');
+          window.setTimeout(function () {
+            document.body.classList.add('loaded');
+            document.body.classList.remove('loaded_hiding');
+          }, 500);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/hotels_slider.js' %}"></script>
+    {% include 'footer.html' %}
 {% endblock %}

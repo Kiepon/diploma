@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import EmailValidator
 # Create your models here.
 
 def rating():
@@ -38,7 +38,9 @@ class Room(models.Model):
         return f'{self.price} Р.'  
 
 
-      
+
+class Subscribe(models.Model):
+    subscribe = models.EmailField(validators=[EmailValidator(message='Неверно указана почта')])
 
     
 
